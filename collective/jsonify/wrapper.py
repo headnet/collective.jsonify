@@ -127,8 +127,6 @@ class Wrapper(dict):
 
                 if field_type in ('Choice',):
                     # Try to convert UID to path if possible
-                    if fieldname == 'topics':
-                        from ipdb import set_trace; set_trace()
                     try:
                         value = self.context.portal_catalog({'UID': value})[0].getPath()
                     except:
