@@ -1,6 +1,7 @@
 from Acquisition import aq_base
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from plone.uuid.interfaces import IUUID
 import datetime
 import os
 try:
@@ -124,7 +125,16 @@ class Wrapper(dict):
                 except AttributeError:
                     field_value_type = None
 
-                if field_type in ('RichText',):
+                if field_type in ('Choice',):
+                    # Try to convert UID to path if possible
+                    if fieldname == 'topics':
+                        from ipdb import set_trace; set_trace()
+                    try:
+                        value = self.context.portal_catalog({'UID': value})[0].getPath()
+                    except:
+                        value = value
+
+                elif field_type in ('RichText',):
                     # TODO: content_type missing
                     value = unicode(value.raw)
 
@@ -171,6 +181,21 @@ class Wrapper(dict):
                             _value.append(item.to_path)
                         except ValueError:
                             continue
+                    value = _value
+
+                elif field_type in (
+                    'Set',
+                    'List'
+                ) and field_value_type in (
+                    'Choice',
+                ):
+                    _value = []
+                    for item in value:
+                        # Try to convert UID to path if possible
+                        try:
+                            _value.append(self.context.portal_catalog({'UID': item})[0].getPath())
+                        except:
+                            _value.append(item)
                     value = _value
 
                 elif field_type == 'GeolocationField':
