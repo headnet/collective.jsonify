@@ -346,10 +346,10 @@ class Wrapper(dict):
 
                 try:
                     max_filesize = int(
-                        os.environ.get('JSONIFY_MAX_FILESIZE', 20000000)
+                        os.environ.get('JSONIFY_MAX_FILESIZE', 200000000)
                     )
                 except ValueError:
-                    max_filesize = 20000000
+                    max_filesize = 200000000
 
                 if value and len(value) < max_filesize:
                     size = value2.getSize()
@@ -834,9 +834,9 @@ class Wrapper(dict):
                 max_filesize = int(
                     os.environ.get(
                         'JSONIFY_MAX_FILESIZE',
-                        20000000))
+                        200000000))
             except ValueError:
-                max_filesize = 20000000
+                max_filesize = 200000000
 
             if value and len(value) < max_filesize:
                 size = orig_value.getSize()
