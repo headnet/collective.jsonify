@@ -119,6 +119,7 @@ CLASSNAME_TO_SKIP = [
     'URLTool',
     'UndoTool',
     'WorkflowTool',
+    'DynamicViewTypeInformation',
 ]
 
 ID_TO_SKIP = []
@@ -198,6 +199,34 @@ PATHS_TO_SKIP = [
     '/translation_service',
     '/uid_catalog',
     '/workflow_catalog',
+    '/news',
+    '/front-page',
+    '/Members',
+    '/eksperter',
+    '/portal_vocabularies',
+    '/kurser',
+    '/netvaerk',
+    '/rss-feeds',
+    '/fpimg1.png',
+    '/fpimg2.png',
+    '/by-bolig', #process for modtagelse
+    '/om-integrationsviden/logo-og-bannere',
+    '/om-integrationsviden/testmapperedaktion',
+    '/om-integrationsviden/filer',
+    '/logind',
+    '/admin',
+    '/dashboard',
+    '/indbakke',
+    '/Temaer/carousel',
+    '/carousel',
+    '/seneste-nyt',
+    '/dynamiske-liste',
+    '/filer',
+    '/Uddannelseditbarnsfremtid.pdf',
+    '/test-kamilaheadnet',
+    '/ny-struktur',
+    '/portal_drafts',
+    '/googledbf2ad2f4d3084db.html'
 ]
 
 
