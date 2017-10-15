@@ -113,6 +113,8 @@ class Wrapper(dict):
             for fieldname, field in getFieldsInOrder(schemata):
                 try:
                     value = field.get(schemata(self.context))
+                    # if fieldname == 'subjects' and self.context.id=='erfaringshandbog-vedr.-rekruttering-og-fastholdelse-af-piger-med-etnisk-minoritetsbaggrund-1':
+                    #     from ipdb import set_trace; set_trace()
                     # value = getattr(context, name).__class__.__name__
                 except AttributeError:
                     continue
@@ -125,12 +127,20 @@ class Wrapper(dict):
                 except AttributeError:
                     field_value_type = None
 
+                if fieldname == 'subjects' and field_type == 'Tuple':
+                    _value = ()
+                    for item in value:
+                        _value += tuple(i.strip() for i in item.split(','))
+                    value = _value
+
+
                 if field_type in ('Choice',):
-                    # Try to convert UID to path if possible
-                    try:
-                        value = self.context.portal_catalog({'UID': value})[0].getPath()
-                    except:
-                        value = value
+                    # Try to convert UID to path if possible - NOT ANYMORE- WE KEEP UIDS
+                    # try:
+                    #     value = self.context.portal_catalog({'UID': value})[0].getPath()
+                    # except:
+                    #     value = value
+                    value = value
 
                 elif field_type in ('RichText',):
                     # TODO: content_type missing
@@ -189,11 +199,12 @@ class Wrapper(dict):
                 ):
                     _value = []
                     for item in value:
-                        # Try to convert UID to path if possible
-                        try:
-                            _value.append(self.context.portal_catalog({'UID': item})[0].getPath())
-                        except:
-                            _value.append(item)
+                        # Try to convert UID to path if possible - UPDATE - WE KEEP UIDS
+                        # try:
+                        #     _value.append(self.context.portal_catalog({'UID': item})[0].getPath())
+                        # except:
+                        #     _value.append(item)
+                        _value.append(item)
                     value = _value
 
                 elif field_type == 'GeolocationField':
