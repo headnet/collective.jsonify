@@ -602,29 +602,29 @@ class Wrapper(dict):
         if getattr(self.context, 'userdefined_roles', False):
             self['_userdefined_roles'] = self.context.userdefined_roles()
 
-    def get_permissions(self):
-        """Permission of object (Security tab in ZMI)
-        :keys: _permissions
-        """
-        self['_permissions'] = {}
-        if getattr(self.context, 'permission_settings', False):
-            roles = self.context.validRoles()
-            ps = self.context.permission_settings()
-            for perm in ps:
-                unchecked = 0
-                if not perm['acquire']:
-                    unchecked = 1
-                new_roles = []
-                for role in perm['roles']:
-                    if role['checked']:
-                        role_idx = role['name'].index('r') + 1
-                        role_name = roles[int(role['name'][role_idx:])]
-                        new_roles.append(role_name)
-                if unchecked or new_roles:
-                    self['_permissions'][perm['name']] = {
-                        'acquire': not unchecked,
-                        'roles': new_roles
-                    }
+    # def get_permissions(self):
+    #     """Permission of object (Security tab in ZMI)
+    #     :keys: _permissions
+    #     """
+    #     self['_permissions'] = {}
+    #     if getattr(self.context, 'permission_settings', False):
+    #         roles = self.context.validRoles()
+    #         ps = self.context.permission_settings()
+    #         for perm in ps:
+    #             unchecked = 0
+    #             if not perm['acquire']:
+    #                 unchecked = 1
+    #             new_roles = []
+    #             for role in perm['roles']:
+    #                 if role['checked']:
+    #                     role_idx = role['name'].index('r') + 1
+    #                     role_name = roles[int(role['name'][role_idx:])]
+    #                     new_roles.append(role_name)
+    #             if unchecked or new_roles:
+    #                 self['_permissions'][perm['name']] = {
+    #                     'acquire': not unchecked,
+    #                     'roles': new_roles
+    #                 }
 
     def get_owner(self):
         """Object owner
