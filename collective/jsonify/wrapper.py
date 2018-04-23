@@ -762,6 +762,23 @@ class Wrapper(dict):
             else:
                 self[field] = ''
 
+    def get_comments(self):
+        """
+        """
+        from plone.app.discussion.interfaces import IConversation
+        from zope.component import getMultiAdapter
+        from plone.restapi.interfaces import ISerializeToJson
+
+        if self.context.id == "71381295":
+            from ipdb import set_trace; set_trace()
+
+        request = getattr(self.context, "REQUEST", None)
+        conv = IConversation(self.context)
+        serializer = getMultiAdapter((conv, request), ISerializeToJson)
+        data = serializer()
+        self['comments_structure'] = data['items']
+
+
     def get_zope_cmfcore_fields(self):
         """If CMFCore is used in an old Zope site, then dump the fields we know
         about.
